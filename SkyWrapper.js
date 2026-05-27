@@ -452,7 +452,7 @@ _find: function(objectName, context) {
      * @returns {boolean|null}
      */
     isObservable: function(minAltitude, maxAirMass) {
-        var minAlt = minAltitude || 20;
+        var minAlt = minAltitude || 15;
         var maxAM  = maxAirMass  || 2.5;
         var alt    = this.getAltitude();
         var am     = this.getAirMass();
@@ -465,7 +465,46 @@ _find: function(objectName, context) {
     // ========================================================
     // MODULE: COORDINATES
     // ========================================================
-    Coordinates: {},
+    Coordinates: {
+     /**
+     * Returns right ascension from the location of the user
+     * Property: sk6ObjInfoProp_RA_NOW (54)
+     * 
+     * @returns {number|null} in arcseconds?
+     */
+        getRightAscension: function () {
+            return SkyWrapper._query(
+                SkyWrapper._PROP.RA_NOW,
+                "Coordinates.getRightAscension"
+                );
+
+        },
+
+        getDeclination: function () {
+            return SkyWrapper._query(
+                SkyWrapper._PROP.DEC_NOW,
+                "Coordinates.getDeclination"
+                );
+
+        },
+
+        getRA2000: function () {
+            return SkyWrapper._query(
+                SkyWrapper._PROP.RA_2000
+                "Coordinates.getRA2000"
+            );
+
+        },
+
+        getDEC2000: function () {
+            return SkyWrapper._query(
+                SkyWrapper._PROP.DEC_2000
+                "Coordinates.getDEC2000"
+            );
+
+        },
+            
+    },
 
     // ========================================================
     // MODULE: IDENTITY
