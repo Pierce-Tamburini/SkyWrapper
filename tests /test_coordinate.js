@@ -65,5 +65,5 @@ _find: function(objectName, context) {
       // "SkyWrapper._find failed"
       // "Context: Unknown"
       // "Object: ["object name"]
-  
+    }
 },
