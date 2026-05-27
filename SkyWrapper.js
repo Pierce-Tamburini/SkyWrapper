@@ -120,12 +120,52 @@ var SkyWrapper = {
     // ========================================================
     // MODULE: SYSTEM
     // ========================================================
-    System: {},
+    System: {
+        /**
+        * Returns TheSky version string
+        * @returns {string}  
+        */
+        getVersion: function() {
+            return Application.version;
+        },
+        /** 
+        * Returns TheSky build string
+        * @returns {string} 
+        */
+        
+        getBuild: function () {
+            return Application.build;
+        },
 
+        /**
+        * Returns the users operating system: Mac, Linux, Windows, or Unknown
+        * @returns {string} 
+        */
+        getOperatingSystem: function () {
+             var osMap = {
+                0:  "Unknown" ,
+                1: "Windows" ,
+                2: "Mac",
+                3: "Linux"
+
+            };
+
+        return osMap[Application.operatingSystem];
+
+        },
+
+        isInitialized: function () {
+           return Application.initialized;
+
+        },
+        
+    
     // ========================================================
     // MODULE: POSITION
     // ========================================================
-    Position: {},
+    Position: {
+        
+    },
 
     // ========================================================
     // MODULE: COORDINATES
