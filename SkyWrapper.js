@@ -684,16 +684,325 @@ getCoordinatesReport: function() {
     // ========================================================
     // MODULE: IDENTITY
     // ========================================================
-    Identity: {},
+    Identity: {
+
+    /**
+     * Returns primary catalog name
+     * Property: sk6ObjInfoProp_NAME1 (0)
+     * @returns {string|null}
+     */
+    getName: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.NAME1,
+            "Identity.getName"
+        );
+    },
+
+    /**
+     * Returns common name (e.g. "Orion Nebula")
+     * Property: sk6ObjInfoProp_CO_NAME (12)
+     * @returns {string|null}
+     */
+    getCommonName: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.CO_NAME,
+            "Identity.getCommonName"
+        );
+    },
+
+    /**
+     * Returns catalog ID
+     * Property: sk6ObjInfoProp_CATALOGID (10)
+     * @returns {string|null}
+     */
+    getCatalogID: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.CATALOGID,
+            "Identity.getCatalogID"
+        );
+    },
+
+    /**
+     * Returns numeric object type code
+     * Property: sk6ObjInfoProp_OBJECTTYPE (41)
+     * 
+     * Key values from Sk6DisplayPropertyObjectType enum:
+     *   0  = OT6_STAR
+     *   1  = OT6_VARIABLE_STAR
+     *   3  = OT6_DOUBLE_STAR
+     *   4  = OT6_GALAXY
+     *   8  = OT6_GAL_SPIRAL
+     *   11 = OT6_OPEN_CLUSTER
+     *   12 = OT6_GLOB_CLUSTER
+     *   14 = OT6_NEBULA
+     *   15 = OT6_BRIGHT_NEB
+     *   17 = OT6_PLAN_NEBULA
+     *   25 = OT6_SUN
+     *   35 = OT6_MOON
+     *   36 = OT6_COMET
+     *   37 = OT6_ASTEROID
+     * 
+     * @returns {number|null} Type code
+     */
+    getObjectTypeCode: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.OBJECTTYPE,
+            "Identity.getObjectTypeCode"
+        );
+    },
+
+    /**
+     * Returns human readable object type name
+     * @returns {string} Type name or "Unknown"
+     */
+    getObjectTypeName: function() {
+        var code = this.getObjectTypeCode();
+        var typeMap = {
+            0:  "Star",
+            1:  "Variable Star",
+            3:  "Double Star",
+            4:  "Galaxy",
+            5:  "Galaxy (Compact)",
+            6:  "Galaxy (Elliptical)",
+            7:  "Galaxy (Lenticular)",
+            8:  "Galaxy (Spiral)",
+            9:  "Galaxy (Irregular)",
+            10: "Galaxy Cluster",
+            11: "Open Cluster",
+            12: "Globular Cluster",
+            13: "Cluster with Nebula",
+            14: "Nebula",
+            15: "Bright Nebula",
+            16: "Dark Nebula",
+            17: "Planetary Nebula",
+            18: "Actual Star",
+            22: "Quasar",
+            25: "Sun",
+            26: "Mercury",
+            27: "Venus",
+            28: "Earth",
+            29: "Mars",
+            30: "Jupiter",
+            31: "Saturn",
+            32: "Uranus",
+            33: "Neptune",
+            34: "Pluto",
+            35: "Moon",
+            36: "Comet",
+            37: "Asteroid"
+        };
+        return typeMap[code] || "Unknown (" + code + ")";
+    }
+
+    },
 
     // ========================================================
     // MODULE: PHYSICAL
     // ========================================================
-    Physical: {},
+    Physical: {
+
+            /**
+     * Returns visual magnitude
+     * Property: sk6ObjInfoProp_MAG (65)
+     * @returns {number|null} Magnitude (lower = brighter)
+     */
+    getMagnitude: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.MAG,
+            "Physical.getMagnitude"
+        );
+    },
+
+    /**
+     * Returns major axis size
+     * Property: sk6ObjInfoProp_MAJ_AXIS_MINS (60)
+     * @returns {number|null} Size in arc minutes
+     */
+    getMajorAxis: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.MAJ_AXIS_MINS,
+            "Physical.getMajorAxis"
+        );
+    },
+
+    /**
+     * Returns minor axis size
+     * Property: sk6ObjInfoProp_MIN_AXIS_MINS (61)
+     * @returns {number|null} Size in arc minutes
+     */
+    getMinorAxis: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.MIN_AXIS_MINS,
+            "Physical.getMinorAxis"
+        );
+    },
+
+    /**
+     * Returns distance from Earth in kilometers
+     * Property: sk6ObjInfoProp_EARTH_DIST_KM (62)
+     * @returns {number|null} Distance in km
+     */
+    getEarthDistanceKM: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.EARTH_DIST_KM,
+            "Physical.getEarthDistanceKM"
+        );
+    },
+
+    /**
+     * Returns position angle
+     * Property: sk6ObjInfoProp_PA (64)
+     * @returns {number|null} Position angle in degrees
+     */
+    getPositionAngle: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.PA,
+            "Physical.getPositionAngle"
+        );
+    },
+
+    /**
+     * Returns phase percentage (planets, Moon)
+     * Property: sk6ObjInfoProp_PHASE_PERC (66)
+     * @returns {number|null} Phase 0-100%
+     */
+    getPhasePercent: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.PHASE_PERC,
+            "Physical.getPhasePercent"
+        );
+    }
+
+    },
 
     // ========================================================
     // MODULE: TIME
     // ========================================================
-    Time: {}
+    Time: {
 
+            /**
+     * Returns rise time as Julian date
+     * Property: sk6ObjInfoProp_RISE_TIME (67)
+     * @returns {number|null} Julian date of next rise
+     */
+    getRiseTimeJD: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.RISE_TIME,
+            "Time.getRiseTimeJD"
+        );
+    },
+
+    /**
+     * Returns transit time as Julian date
+     * Property: sk6ObjInfoProp_TRANSIT_TIME (68)
+     * @returns {number|null} Julian date of next transit
+     */
+    getTransitTimeJD: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.TRANSIT_TIME,
+            "Time.getTransitTimeJD"
+        );
+    },
+
+    /**
+     * Returns set time as Julian date
+     * Property: sk6ObjInfoProp_SET_TIME (69)
+     * @returns {number|null} Julian date of next set
+     */
+    getSetTimeJD: function() {
+        return SkyWrapper._query(
+            SkyWrapper._PROP.SET_TIME,
+            "Time.getSetTimeJD"
+        );
+    },
+
+    /**
+     * Returns rise time as formatted string
+     * @returns {string|null} e.g. "21:42:00"
+     */
+    getRiseTimeString: function() {
+        var jd = this.getRiseTimeJD();
+        if (jd === null) return null;
+        return sky6Utils.FormatDate(jd);
+    },
+
+    /**
+     * Returns transit time as formatted string
+     * @returns {string|null}
+     */
+    getTransitTimeString: function() {
+        var jd = this.getTransitTimeJD();
+        if (jd === null) return null;
+        return sky6Utils.FormatDate(jd);
+    },
+
+    /**
+     * Returns set time as formatted string
+     * @returns {string|null}
+     */
+    getSetTimeString: function() {
+        var jd = this.getSetTimeJD();
+        if (jd === null) return null;
+        return sky6Utils.FormatDate(jd);
+    },
+
+    /**
+     * Returns astronomical twilight start time tonight
+     * Property: sk6ObjInfoProp_TWIL_ASTRON_START (171)
+     * This marks when true darkness begins
+     * 
+     * @returns {number|null} Julian date
+     */
+    getAstronomicalDarkStart: function() {
+        sky6StarChart.Find("Sun");
+        return SkyWrapper._query(
+            SkyWrapper._PROP.TWIL_ASTRON_START,
+            "Time.getAstronomicalDarkStart"
+        );
+    },
+
+    /**
+     * Returns astronomical twilight end time tonight
+     * Property: sk6ObjInfoProp_TWIL_ASTRON_END (172)
+     * This marks when morning twilight begins
+     * 
+     * @returns {number|null} Julian date
+     */
+    getAstronomicalDarkEnd: function() {
+        sky6StarChart.Find("Sun");
+        return SkyWrapper._query(
+            SkyWrapper._PROP.TWIL_ASTRON_END,
+            "Time.getAstronomicalDarkEnd"
+        );
+    },
+
+    /**
+     * Returns duration of tonight's astronomical darkness in hours
+     * @returns {number|null} Hours of darkness
+     */
+    getDarkHours: function() {
+        var start = this.getAstronomicalDarkStart();
+        var end   = this.getAstronomicalDarkEnd();
+        if (start === null || end === null) return null;
+        // Julian dates — difference in days, convert to hours
+        return (end - start) * 24;
+    },
+
+    /**
+     * Returns current Julian date from TheSky
+     * @returns {number} Current Julian date
+     */
+    getCurrentJD: function() {
+        return sky6Utils.Julian();
+    },
+
+    /**
+     * Returns current date as formatted string
+     * @returns {string} Formatted date/time
+     */
+    getCurrentDateString: function() {
+        return sky6Utils.FormatDate(sky6Utils.Julian());
+    }
+
+}
 };
