@@ -666,6 +666,7 @@ getCoordinatesReport: function() {
     getObserverLongitude: function() {
         sky6StarChart.DocumentProperty(1);
         return sky6StarChart.DocPropOut;
+    
     },
 
     /**
@@ -677,7 +678,6 @@ getCoordinatesReport: function() {
     getObserverElevation: function() {
         sky6StarChart.DocumentProperty(3);
         return sky6StarChart.DocPropOut;
-        }
    
     },
 
