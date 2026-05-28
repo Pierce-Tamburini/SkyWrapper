@@ -470,7 +470,7 @@ _find: function(objectName, context) {
      * Returns right ascension from the location of the user
      * Property: sk6ObjInfoProp_RA_NOW (54)
      * 
-     * @returns {number|null} in arcseconds?
+     * @returns {number|null} in decimal hours (0-24)
      */
         getRightAscension: function () {
             return SkyWrapper._query(
@@ -479,7 +479,13 @@ _find: function(objectName, context) {
                 );
 
         },
-
+      /**
+      * Returns declination from the location of the user
+      * Property: sk6ObjInfoProp_DEC_NOW (55)
+      *
+      * @returns {number|null} DEC in decimal degrees (-90 to +90)
+      */
+    
         getDeclination: function () {
             return SkyWrapper._query(
                 SkyWrapper._PROP.DEC_NOW,
@@ -487,23 +493,192 @@ _find: function(objectName, context) {
                 );
 
         },
-
+      /**
+      * Returns J2000 epoch right ascension
+      * Property: sk6ObjInfoProp_RA_2000 (56)
+      *
+      * @returns {number|null} RA in decimal hours (0-24)
+      */
+    
         getRA2000: function () {
             return SkyWrapper._query(
-                SkyWrapper._PROP.RA_2000
+                SkyWrapper._PROP.RA_2000,
                 "Coordinates.getRA2000"
-            );
+                );
 
         },
-
+      /**
+      * Returns J2000 epoch declination
+      * Property: sk6ObjInfoProp_DEC_2000 (57)
+      *
+      * @returns {number|null} DEC in decimal degrees (-90 to +90)
+      */
         getDEC2000: function () {
             return SkyWrapper._query(
-                SkyWrapper._PROP.DEC_2000
+                SkyWrapper._PROP.DEC_2000,
                 "Coordinates.getDEC2000"
             );
 
         },
+        
+     /**
+     * Returns local sidereal time
+     * Property: sk6ObjInfoProp_SIDEREAL (173)
+     * 
+     * @returns {number|null} LST in decimal hours
+     */
+    getSiderealTime: function() {
+        sky6StarChart.Find("Sun"); // LST requires any valid object, however the Sun is always findeable
+        return SkyWrapper._query(
+            SkyWrapper._PROP.SIDEREAL,
+            "Coordinates.getSiderealTime"
+            );
+        
+        },
+
+     /**
+     * Returns RA formatted as HH:MM:SS (hour-hour, minute-minute, second-second) string
+     * sky6Utils for conversion
+     * 
+     * @param  {number}  raDecimal  RA in decimal hours
+     * @returns {string} HH:MM:SS string
+     */
+    /**
+    formatRA: function(raDecimal) {
+        if (raDecimal === null || raDecimal === undefined) return "N/A";
+        return sky6Utils.HMSFromDec(raDecimal);
+            },
+    */
+        formatRA: function(raDecimal) {
+            var h = Math.floor(raDecimal);
             
+            var mDecimal = (raDecimal - h) * 60;
+            var m = Math.floor(mDecimal);
+            
+            var s = ((mDecimal - m) * 60).toFixed(2);
+
+            return h + ":" + m + ":" + s;
+
+        },
+
+    /**
+     * Returns Dec formatted as +DD:MM:SS (degree, minute-minute, second-second) string
+     * sky6Utils for conversion
+     * 
+     * @param  {number}  decDecimal  Dec in decimal degrees
+     * @returns {string} +DD:MM:SS string
+     */
+    formatDec: function(decDecimal) {
+        if (decDecimal === null || decDecimal === undefined) return "N/A";
+        function pad(n) {
+            return n < 10 ? "0" + n : n;
+        }
+         sky6Utils.ConvertAngleToDMS(decDecimal);
+
+        var sign = decDecimal < 0 ? "-" : "+";
+        
+        return (
+            sign + 
+            pad(sky6Utils.dOut0) + ":" + pad(sky6Utils.dOut1) + ":" + pad(Math.round(sky6Utils.dOut2))
+            );
+         },
+
+
+     /**
+     * Returns complete coordinate set for current object
+     * 
+     * @returns {Object|null} Coordinates object
+     *   {
+     *     raNow:    number,   // decimal hours
+     *     decNow:   number,   // decimal degrees
+     *     ra2000:   number,   // decimal hours
+     *     dec2000:  number,   // decimal degrees
+     *     raString: string,   // formatted HH:MM:SS
+     *     decString: string   // formatted DD:MM:SS
+     *     ra2000String: string   //formatted HH:MM:SS
+     *     dec2000String: string   // formatted DD:MM:SS
+     *   }
+     * // Dont call the getAll function when calling the aforementioned table. Use getCoordinatesReport.
+     */
+
+    getAll: function() {
+        var ra  = this.getRightAscension();
+        if (ra === null) return null;
+        
+        var dec = this.getDeclination();
+
+        return {
+            raNow:     ra,
+            decNow:    dec,
+            ra2000:    this.getRA2000(),
+            dec2000:   this.getDEC2000(),
+            raString:  this.formatRA(ra),
+            decString: this.formatDec(dec),
+            ra2000String: this.formatRA(this.getRA2000()),
+            dec2000String: this.formatDec(this.getDEC2000())
+        };
+    },  
+
+getCoordinatesReport: function() { 
+
+       var coords = this.getAll();
+        
+        if (coords === null) 
+            return "No coordinates available";
+       
+       
+        return [
+            "SkyWrapper Coordinates Report",
+            "==============================",
+            "RA now (raw):          " + coords.raNow,
+            "Declination now (raw): " + coords.decNow,
+            "RA 2000 (raw)    :    " + coords.ra2000,
+            "Declination 2000 (raw)   : " + coords.dec2000,
+            "RA string     : " + coords.raString,
+            "Declination string : " + coords.decString,
+            "RA 2000 string : " + coords.ra2000String,
+            "Dec 2000 string : " + coords.dec2000String
+        ].join("\n");
+    }
+
+    
+
+    },
+
+    /**
+     * Returns observer latitude from document properties
+     * Uses sky6StarChart DocumentProperty system
+     * Property: sk6DocProp_Latitude (0)
+     * 
+     * @returns {number} Observer latitude in decimal degrees
+     */
+    getObserverLatitude: function() {
+        sky6StarChart.DocumentProperty(0);
+        return sky6StarChart.DocPropOut;
+    },
+
+    /**
+     * Returns observer longitude from document properties
+     * Property: sk6DocProp_Longitude (1)
+     * 
+     * @returns {number} Observer longitude in decimal degrees
+     */
+    getObserverLongitude: function() {
+        sky6StarChart.DocumentProperty(1);
+        return sky6StarChart.DocPropOut;
+    },
+
+    /**
+     * Returns observer elevation in meters
+     * Property: sk6DocProp_ElevationInMeters (3)
+     * 
+     * @returns {number} Elevation in meters
+     */
+    getObserverElevation: function() {
+        sky6StarChart.DocumentProperty(3);
+        return sky6StarChart.DocPropOut;
+        }
+   
     },
 
     // ========================================================
