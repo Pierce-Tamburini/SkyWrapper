@@ -35,6 +35,9 @@
  *   All property codes sourced from official Bisque Doxygen
  *   documentation Sk6ObjectInformationProperty enum.
  *   https://www.bisque.com/wp-content/scriptthesky/
+ *
+ * Project repository:
+ * https://github.com/Pierce-Tamburini/SkyWrapper
  * ============================================================
  */
 
