@@ -1380,6 +1380,8 @@ Extras: {
 
         var ra  = SkyWrapper.Coordinates.getRightAscension();
         var dec = SkyWrapper.Coordinates.getDeclination();
+		var ra2000 = SkyWrapper.Coordinates.getRA2000();
+		var dec2000 = SkyWrapper.Coordinates.getDEC2000();
 		var knownSolarSystem = [
 		"Sun", "Mercury", "Venus", "Moon",
         "Mars", "Jupiter", "Saturn",
