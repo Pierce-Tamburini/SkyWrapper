@@ -43,13 +43,12 @@
 
 var SkyWrapper = {
 
-    // ========================================================
     // INTERNAL CONSTANTS
     // Property codes from Sk6ObjectInformationProperty enum
     // Official names preserved for verification
 	// _PROP_NAME 1-7 objects are named for clarification
 	// Note that not all PROP codes listed are used in SkyWrapper
-    // ========================================================
+    
     
     _PROP: {
         // Identity
@@ -132,9 +131,9 @@ var SkyWrapper = {
         HEIGHT:             183,
         WIDTH:              184
     },
-    // =======================================================    
-    // INTERNAL HELPERS
-    //========================================================
+ 
+    // INTERNAL
+
 
 /**
  * INTERNAL — Query a property for the currently selected object
@@ -279,9 +278,9 @@ _formatJD: function(jd) {
 },
 
 	
-    // ========================================================
+
     // MODULE 1: SYSTEM
-    // ========================================================
+   
 	
     System: {
 		
@@ -417,9 +416,9 @@ _formatJD: function(jd) {
 },
         
     
-    // ========================================================
+
     // MODULE 2: POSITION
-    // ========================================================
+
   Position: {
 
     /**
@@ -550,9 +549,9 @@ _formatJD: function(jd) {
           },
 
 	
-    // ========================================================
     // MODULE 3: COORDINATES
-    // ========================================================
+
+	
     Coordinates: {
 		
     /**
@@ -762,9 +761,9 @@ getCoordinatesReport: function() {
 	},
 
 	
-    // ========================================================
+
     // MODULE 4: IDENTITY
-    // ========================================================
+
 	
        Identity: {
 
@@ -862,9 +861,8 @@ getCoordinatesReport: function() {
 },
 
 
-    // ========================================================
     // MODULE 5: PHYSICAL
-    // ========================================================
+
     Physical: {
 
     /**
@@ -993,21 +991,20 @@ getDecRate: function() {
 },
 
 	
-// ========================================================
+
 // MODULE 6: TIME
 //
-// CRITICAL ARCHITECTURAL NOTE:
 // sky6Utils uses shared output variables (dOut0-dOut5, strOut).
 // Every sky6Utils call overwrites these immediately.
 // ALWAYS store dOut values in local variables before making
-// any subsequent sky6Utils call. Failure to do this will
-// silently produce wrong values with no error message.
+// any subsequent sky6Utils call. Otherwise, code will produce wrong values
+// without any error.
 //
-// Correct pattern:
+// Example:
 //   sky6Utils.ComputeRiseTransitSetTimes(ra, dec);
 //   var rise = sky6Utils.dOut0;    // store immediately
 //   var set  = sky6Utils.dOut2;    // store immediately
-// ========================================================
+
 	
 Time: {
 
@@ -1267,9 +1264,9 @@ Time: {
 },
 
 	
-// ========================================================
+
 // MODULE 7: EXTRAS
-// ========================================================
+
 	
 Extras: {
 
@@ -1347,10 +1344,10 @@ Extras: {
 
 		}, 
 
-    // ========================================================
-    // TOP LEVEL — CONVENIENCE QUERY
+   
+    // CONVENIENCE QUERY
 	// Note: This is NOT the internal helper _query()
-    // ========================================================
+   
 /**
  * Queries all available properties for a named celestial object.
  * Primary high-level interface for SkyWrapper.
