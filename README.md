@@ -34,7 +34,7 @@ var data = SkyWrapper.query("M42");
 var alt  = data.position.altitude;
 ```
 
-One line. Readable. Self-documenting. Error-handled.
+Cleaner, readable, and error-handled.
 
 ---
 
@@ -187,8 +187,8 @@ Supplementary calculations.
 
 ### SkyWrapper.query(objectName)
 
-Primary high-level interface. Finds the object and returns a complete
-structured profile in a single call.
+Primary function (most useful). Finds the object and returns a 
+relevant profile in one call.
 
 ```javascript
 var data = SkyWrapper.query("M42");
