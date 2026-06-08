@@ -1415,7 +1415,9 @@ Extras: {
                 ra2000:    SkyWrapper.Coordinates.getRA2000(),
                 dec2000:   SkyWrapper.Coordinates.getDEC2000(),
                 raString:  SkyWrapper.Coordinates.formatRA(ra),
-                decString: SkyWrapper.Coordinates.formatDec(dec)
+                decString: SkyWrapper.Coordinates.formatDec(dec),
+				ra2000String: SkyWrapper.Coordinates.formatRA(ra2000),
+				dec2000String: SkyWrapper.Coordinates.formatDec(dec2000)
             },
             identity: {
                 primaryName:   SkyWrapper.Identity.getPrimaryName(),
