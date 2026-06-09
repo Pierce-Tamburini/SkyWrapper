@@ -46,7 +46,7 @@ var SkyWrapper = {
     // INTERNAL CONSTANTS
     // Property codes from Sk6ObjectInformationProperty enum
     // Official names preserved for verification
-	// _PROP_NAME 1-6 objects are named for clarification
+	// _PROP_NAME 1-7 objects are named for clarification
 	// Note that not all PROP codes listed are used in SkyWrapper
     
     
