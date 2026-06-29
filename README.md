@@ -34,7 +34,7 @@ var data = SkyWrapper.query("M42");
 var alt  = data.position.altitude;
 ```
 
-Cleaner, readable, and error-handled.
+
 
 ---
 
