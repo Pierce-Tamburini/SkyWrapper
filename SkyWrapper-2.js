@@ -1,7 +1,7 @@
 /**
  * SkyWrapper.js
  * ============================================================
- * A professional wrapper library for TheSky X scripting API
+ * A wrapper library for TheSky X scripting API
  * 
  * Provides documented, error-handled functions for
  * TheSky X's sky6ObjectInformation property code system,
